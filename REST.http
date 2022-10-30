@@ -1,0 +1,6 @@
+POST http://localhost:2022/upload
+Content-Type: multipart/form-data
+
+fileForUpload:
+< ./lab1_systems.docx
+
