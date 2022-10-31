@@ -1,5 +1,4 @@
 const express = require("express");
-const port = 2022;
 const app = express();
 const bodyParser = require("body-parser");
 const multer = require("multer");
@@ -8,17 +7,21 @@ const fs = require("fs");
 const path = require("path");
 const stream = require("stream");
 const morgan = require("morgan");
+const hash = require('./keyCreator');
+require('dotenv').config()
 
-const CryptoAlgorithm = "aes-256-cbc";
+const CryptoAlgorithm = process.env.CRYPTOALGORITM;
+const host = process.env.HOST;
+const port = process.env.PORT;
 
 // Obviously keys should not be kept in code, these should be populated with environmental variables or key store
 const secret = {
-  iv: Buffer.from("efb2da92cff888c9c295dc4ee682789c", "hex"),
+  iv: Buffer.from(process.env.IV, "hex"),
   key: Buffer.from(
-    "6245cb9b8dab1c1630bb3283063f963574d612ca6ec60bc8a5d1e07ddd3f7c53",
-    "hex"
+    hash
   ),
 };
+
 
 app.use(express.static("./public"));
 app.use(bodyParser.json());
@@ -69,14 +72,21 @@ function getEncryptedFile(filePath, key, iv) {
 }
 
 app.post("/upload", upload.single("file"), (req, res, next) => {
+  console.log("key: ", req.body.keyPair);  
   console.log("file upload: ", req.file.originalname);
+  
+  const keyPair = req.body.keyPair
+  const filePath = path.join("./uploads/", req.file.originalname)
+
   saveEncryptedFile(
     req.file.buffer,
-    path.join("./uploads", req.file.originalname),
+    filePath,
     secret.key,
     secret.iv
   );
-  res.status(201).json({ status: "ok" });
+
+  
+  res.status(201).json({ status: "ok", link: `${host}:${port}/file/${ req.file.originalname}` });
 });
 
 app.get("/file/:fileName", (req, res, next) => {
@@ -97,4 +107,4 @@ app.get("/file/:fileName", (req, res, next) => {
 });
 
 app.listen(port);
-console.log(`Serving at http://localhost:${port}`);
+console.log(`Serving at ${host}:${port}`);

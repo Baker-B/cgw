@@ -1,11 +1,10 @@
 const crypto = require("crypto");
+require('dotenv').config()
 
-const secret = "abcdefg";
+const ival = process.env.IV;
 const hash = crypto
-  .createHmac("sha256", secret)
-  .update("national au")
-  .digest("hex");
-console.log(hash);
-// Prints:
-//   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
-module.exports = secret;
+  .createHmac("sha256", ival)
+  .update("national aviation university")
+  .digest("hex")
+  // .toString();
+module.exports = hash;
