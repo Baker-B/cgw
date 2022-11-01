@@ -1,0 +1,16 @@
+<h2>Fill all fields</h2>
+<form role="form" action="/upload" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="_csrf" value="{{_csrfToken}}" />
+  <input type="hidden" name="keyPair" value="{{keyPair}}" />
+  <div>
+    <label for="fieldName">File</label>
+    <div>
+      <input type="file" id="fieldName" name="file" />
+    </div>
+  </div>
+  <div>
+    <div>
+      <button type="submit">Upload</button>
+    </div>
+  </div>
+</form>

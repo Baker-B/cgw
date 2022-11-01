@@ -7,8 +7,11 @@ const fs = require("fs");
 const path = require("path");
 const stream = require("stream");
 const morgan = require("morgan");
-const hash = require('./keyCreator');
-require('dotenv').config()
+const hash = require("./keyCreator");
+const { engine } = require("express-handlebars");
+
+const router = require("./routes/router");
+require("dotenv").config();
 
 const CryptoAlgorithm = process.env.CRYPTOALGORITM;
 const host = process.env.HOST;
@@ -17,16 +20,26 @@ const port = process.env.PORT;
 // Obviously keys should not be kept in code, these should be populated with environmental variables or key store
 const secret = {
   iv: Buffer.from(process.env.IV, "hex"),
-  key: Buffer.from(
-    hash
-  ),
+  key: Buffer.from(hash),
 };
 
+// configure Handlebars view engine
+app.engine(
+  ".hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: "main",
+  })
+);
+app.set("view engine", ".hbs");
+app.set("views", "./views");
 
 app.use(express.static("./public"));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan("dev"));
+app.disable("x-powered-by");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
@@ -71,22 +84,21 @@ function getEncryptedFile(filePath, key, iv) {
   return buffer;
 }
 
+app.get("/", router.form);
+
 app.post("/upload", upload.single("file"), (req, res, next) => {
-  console.log("key: ", req.body.keyPair);  
+  console.log("key: ", req.body.keyPair);
   console.log("file upload: ", req.file.originalname);
-  
-  const keyPair = req.body.keyPair
-  const filePath = path.join("./uploads/", req.file.originalname)
 
-  saveEncryptedFile(
-    req.file.buffer,
-    filePath,
-    secret.key,
-    secret.iv
-  );
+  const keyPair = req.body.keyPair;
+  const filePath = path.join("./uploads/", req.file.originalname);
 
-  
-  res.status(201).json({ status: "ok", link: `${host}:${port}/file/${ req.file.originalname}` });
+  saveEncryptedFile(req.file.buffer, filePath, secret.key, secret.iv);
+
+  res.status(201).json({
+    status: "ok",
+    link: `${host}:${port}/file/${req.file.originalname}`,
+  });
 });
 
 app.get("/file/:fileName", (req, res, next) => {
