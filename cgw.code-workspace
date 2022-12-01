@@ -4,7 +4,7 @@
 		"path": "."
 	},
 	{
-		"path": "../MT/site/server"
+		"path": "../MT/site"
 	}
 ],
   "settings": {}
