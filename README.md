@@ -1,7 +1,11 @@
 # Calculating graphic work
 
-The solution is monolith app on nodejs and express.
-The frontend is implemented on handlebars.
+backend [Express application generator](https://expressjs.com/en/starter/generator.html)
+`npx express-generator server --view=hbs`
+frontend [CRA](https://create-react-app.dev/docs/getting-started)
+
+<!--  The solution is monolith app on nodejs and express. -->
+<!-- The frontend is implemented on handlebars. -->
 
 ## crypto api educational application
 

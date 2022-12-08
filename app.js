@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const crypto = require("crypto");
 const fs = require("fs");
-const path = require("path");
+
 const stream = require("stream");
 const morgan = require("morgan");
 const hash = require("./keyCreator");
@@ -13,7 +13,7 @@ const { engine } = require("express-handlebars");
 const router = require("./routes/router");
 require("dotenv").config();
 
-const CryptoAlgorithm = process.env.CRYPTOALGORITM;
+const CryptoAlgorithm = process.env.CRYPTOALGORITM || "aes-256-cbc";
 const host = process.env.HOST;
 const port = process.env.PORT;
 
@@ -33,14 +33,14 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 app.set("views", "./views");
-
+// configure folder for public files
 app.use(express.static("./public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+// configure logger & some sequrity
 app.use(morgan("dev"));
 app.disable("x-powered-by");
-
+// configure multer store
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
@@ -57,6 +57,7 @@ function decrypt(algorithm, buffer, key, iv) {
   return decrypted;
 }
 
+// TODO: spaces and unsupported symbols handle
 function getEncryptedFilePath(filePath) {
   return path.join(
     path.dirname(filePath),
@@ -85,6 +86,8 @@ function getEncryptedFile(filePath, key, iv) {
 }
 
 app.get("/", router.form);
+
+app.get("/genkeypair");
 
 app.post("/upload", upload.single("file"), (req, res, next) => {
   console.log("key: ", req.body.keyPair);

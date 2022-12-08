@@ -1,11 +1,28 @@
 <h2>Fill all fields</h2>
+
 <form role="form" action="/upload" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="_csrf" value="{{_csrfToken}}" />
   <input type="hidden" name="keyPair" value="{{keyPair}}" />
   <div>
-    <label for="fieldName">File</label>
+    <p>Choose an algorithm:</p>
+    <input type="radio" id="html" name="fav_language" value="HTML" />
+
+    <label for="html">HTML</label><br />
+
+    <input type="radio" id="css" name="fav_language" value="CSS" />
+
+    <label for="css">CSS</label><br />
+    <input
+      type="radio"
+      id="javascript"
+      name="fav_language"
+      value="JavaScript"
+    />
+     
+    <label for="javascript">JavaScript</label>
+    <label for="fileName">File</label>
     <div>
-      <input type="file" id="fieldName" name="file" />
+      <input type="file" id="fileName" name="file" />
     </div>
   </div>
   <div>
