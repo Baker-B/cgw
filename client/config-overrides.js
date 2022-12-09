@@ -7,7 +7,7 @@ module.exports = function override(config, env) {
   config.resolve.plugins = config.resolve.plugins.filter(
     (plugin) => !(plugin instanceof ModuleScopePlugin)
   );
-  config.experiments = config.experiments.topLevelAwait: true
-  }
+
+ 
   return config;
 };

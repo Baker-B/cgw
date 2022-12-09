@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
   res.send("Here will be the CA");
 });
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:2022/",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 /* POST CA request */

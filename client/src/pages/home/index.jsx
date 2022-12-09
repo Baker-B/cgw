@@ -1,13 +1,13 @@
 import React from "react";
 import { message, Upload, Button, Form, Input } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
-import getKeys from "../../services/genRsa.mjs";
+// import getKeys from "../../services/genRsa.mjs";
 const { Dragger } = Upload;
 const propsDragger = {
   name: "file",
   multiple: true,
   method: "POST",
-  action: "http://172.24.214.108:2023/ca/reqcert",
+  action: "http://localhost:3000/ca/reqcert",
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
@@ -24,7 +24,7 @@ const propsDragger = {
   },
 };
 const sendRequestForRSA = (values) => {
-  console.log("Public key is: ", getKeys());
+  // console.log("Public key is: ", getKeys());
   console.log("Success:", values);
 };
 const onFinishFailed = (errorInfo) => {

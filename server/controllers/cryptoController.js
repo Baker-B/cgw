@@ -1,13 +1,17 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const hash = require('../service/keyCreator');
 
-const CryptoAlgorithm = process.env.CRYPTOALGORITM || "aes-256-cbc";
+// const CryptoAlgorithm = process.env.CRYPTOALGORITM || "aes-256-cbc";
+const CryptoAlgorithm = "rc4";
 // Obviously keys should not be kept in code, these should be populated with environmental variables or key store
 const secret = {
-  iv: Buffer.from(process.env.IV, "hex"),
+  // iv: Buffer.from(process.env.IV, "hex"),
+  iv: Buffer.from("Kalishuk", "hex"),
   key: Buffer.from(hash),
 };
+
 
 // encryption
 function encrypt(algorithm, buffer, key, iv) {
@@ -32,7 +36,8 @@ function getEncryptedFilePath(filePath) {
   );
 }
 
-function saveEncryptedFile(buffer, filePath, key, iv) {
+function saveEncryptedFile(buffer, filePath, key=secret.key, iv=secret.iv) {
+  console.log("secret is: ", secret);
   const encrypted = encrypt(CryptoAlgorithm, buffer, key, iv);
 
   filePath = getEncryptedFilePath(filePath);
@@ -51,9 +56,9 @@ function getEncryptedFile(filePath, key, iv) {
 }
 
 module.exports = {
-  encrypt,
-  decrypt,
+  // encrypt,
+  // decrypt,
   getEncryptedFile,
   saveEncryptedFile,
-  getEncryptedFile,
+  // getEncryptedFilePath,
 };
