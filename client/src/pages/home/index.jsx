@@ -1,11 +1,13 @@
 import React from "react";
-import { message, Upload } from "antd";
+import { message, Upload, Button, Form, Input } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
+import getKeys from "../../services/genRsa.mjs";
 const { Dragger } = Upload;
-const props = {
+const propsDragger = {
   name: "file",
   multiple: true,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+  method: "POST",
+  action: "http://172.24.214.108:2023/ca/reqcert",
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
@@ -21,10 +23,69 @@ const props = {
     console.log("Dropped files", e.dataTransfer.files);
   },
 };
+const sendRequestForRSA = (values) => {
+  console.log("Public key is: ", getKeys());
+  console.log("Success:", values);
+};
+const onFinishFailed = (errorInfo) => {
+  console.log("Failed:", errorInfo);
+};
 const HomePage = () => (
   <>
-    <h1>Uploader</h1>
-    <Dragger {...props}>
+    <h1>Start!</h1>
+    <h2>Create a key pair first!</h2>
+    <Form
+      name="basic"
+      labelCol={{
+        span: 8,
+      }}
+      wrapperCol={{
+        span: 8,
+      }}
+      onFinish={sendRequestForRSA}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: "Please input your username!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: "Please input your password!",
+          },
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+
+    <h2>Uploader</h2>
+    <Dragger {...propsDragger}>
       <p className="ant-upload-drag-icon">
         <InboxOutlined />
       </p>
