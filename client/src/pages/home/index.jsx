@@ -1,5 +1,5 @@
 import React from "react";
-import { message, Upload, Button, Form, Input } from "antd";
+import { message, Upload, Button, Form, Input, Space } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 // import getKeys from "../../services/genRsa.mjs";
 const { Dragger } = Upload;
@@ -7,7 +7,11 @@ const propsDragger = {
   name: "file",
   multiple: true,
   method: "POST",
-  action: "http://localhost:3000/ca/reqcert",
+  action: "http://localhost:2023/ca/reqcert",
+  headers: {
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Referrer-Policy": "unsafe-url",
+  },
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
@@ -85,18 +89,27 @@ const HomePage = () => (
     </Form>
 
     <h2>Uploader</h2>
-    <Dragger {...propsDragger}>
-      <p className="ant-upload-drag-icon">
-        <InboxOutlined />
-      </p>
-      <p className="ant-upload-text">
-        Click or drag file to this area to upload
-      </p>
-      <p className="ant-upload-hint">
-        Support for a single or bulk upload. Strictly prohibit from uploading
-        company data or other band files
-      </p>
-    </Dragger>
+    <Space
+      style={{
+        display: "flex",
+        width: "50%",
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
+      <Dragger {...propsDragger}>
+        <p className="ant-upload-drag-icon">
+          <InboxOutlined />
+        </p>
+        <p className="ant-upload-text">
+          Click or drag file to this area to upload
+        </p>
+        <p className="ant-upload-hint">
+          Support for a single or bulk upload. Strictly prohibit from uploading
+          company data or other band files
+        </p>
+      </Dragger>
+    </Space>
   </>
 );
 export default HomePage;
