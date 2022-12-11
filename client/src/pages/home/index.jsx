@@ -8,16 +8,14 @@ const propsDragger = {
   multiple: true,
   method: "POST",
   action: "http://localhost:2023/ca/reqcert",
-  headers: {
-    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Referrer-Policy": "unsafe-url",
-  },
+
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
-      console.log(info.file, info.fileList);
+      console.log("info.file: ", info.file, "info.fileList: ", info.fileList);
     }
     if (status === "done") {
+      console.log("response: ", info.file.response);
       message.success(`${info.file.name} file uploaded successfully.`);
     } else if (status === "error") {
       message.error(`${info.file.name} file upload failed.`);

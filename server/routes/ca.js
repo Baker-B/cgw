@@ -5,6 +5,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const path = require("path");
 const cors = require("cors");
+const { saveEncryptedFile } = require("../controllers/cryptoController");
 router.use(cors());
 
 /* GET CA  */
@@ -25,10 +26,17 @@ router.post(
   upload.single("file"),
   (req, res) => {
     const filePath = path.join("../uploads/", req.file.originalname);
-    console.log("file upload: ", req.file.originalname);
-    console.log("filePath: ", filePath);
-    res.sendStatus(201);
+    console.log("file upload: ", req?.file?.originalname);
+
+    saveEncryptedFile(req.file.buffer, filePath);
+    res
+      .status(201)
+      .send(
+        `File ${req.file.originalname} has been uploaded and encrypted to ${filePath}`
+      );
   }
 );
+
+router.get("/reqcert");
 
 module.exports = router;
