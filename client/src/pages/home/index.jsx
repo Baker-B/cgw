@@ -7,7 +7,7 @@ const propsDragger = {
   name: "file",
   multiple: true,
   method: "POST",
-  action: "http://localhost:2023/ca/reqcert",
+  action: `http://localhost:3000/ca/upload`,
 
   onChange(info) {
     const { status } = info.file;
@@ -36,6 +36,7 @@ const HomePage = () => (
   <>
     <h1>Start!</h1>
     <h2>Create a key pair first!</h2>
+    
     <Form
       name="basic"
       labelCol={{

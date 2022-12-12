@@ -37,7 +37,6 @@ function getEncryptedFilePath(filePath) {
 }
 
 function saveEncryptedFile(buffer, filePath, key=secret.key, iv=secret.iv) {
-  console.log("secret is: ", secret);
   const encrypted = encrypt(CryptoAlgorithm, buffer, key, iv);
 
   filePath = getEncryptedFilePath(filePath);

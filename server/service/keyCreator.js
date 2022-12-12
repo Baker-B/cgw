@@ -8,6 +8,6 @@ const hash = crypto
   .update("national aviation university")
   .digest("hex")
 .toString();
-console.log("hash: ",hash);
+console.log("hash created");
 
 module.exports = hash;
