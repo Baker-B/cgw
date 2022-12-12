@@ -1,16 +1,27 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
-const hash = require('../service/keyCreator');
+// const hash = require('../service/keyCreator');
 
 // const CryptoAlgorithm = process.env.CRYPTOALGORITM || "aes-256-cbc";
 const CryptoAlgorithm = "rc4";
+
+const ivector = crypto.randomBytes(16)
+
+
+const hash = crypto
+  .createHmac("sha256", ivector)
+  .update("national aviation university")
+  .digest("hex")
+.toString();
+console.log("hash created");
 // Obviously keys should not be kept in code, these should be populated with environmental variables or key store
 const secret = {
   // iv: Buffer.from(process.env.IV, "hex"),
-  iv: Buffer.from("Kalishuk", "hex"),
+  iv: Buffer.from(ivector),
   key: Buffer.from(hash),
 };
+
 
 
 // encryption
@@ -45,6 +56,9 @@ function saveEncryptedFile(buffer, filePath, key=secret.key, iv=secret.iv) {
   }
 
   fs.writeFileSync(filePath, encrypted);
+console.log("secret: ", secret);
+
+  return secret
 }
 
 function getEncryptedFile(filePath, key, iv) {

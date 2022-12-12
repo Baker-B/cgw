@@ -8,6 +8,8 @@ const cors = require("cors");
 const { saveEncryptedFile } = require("../controllers/cryptoController");
 router.use(cors());
 
+const fileStorage = []
+
 /* GET CA  */
 router.get("/", function (req, res, next) {
   res.send("Here will be the CA");
@@ -24,7 +26,10 @@ router.post(
     const filePath = path.join("../uploads/", req.file.originalname);
     console.log("file upload: ", req?.file?.originalname);
 
-    saveEncryptedFile(req.file.buffer, filePath);
+    const secret = saveEncryptedFile(req.file.buffer, filePath);
+    
+    fileStorage.push({fileLink:filePath, secret:secret})
+    console.log("fileStorage", fileStorage);
     res
       .status(201)
       .send(
