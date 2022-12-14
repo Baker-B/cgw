@@ -2,6 +2,12 @@ h1,
 h2 {
   text-align: center;
 }
+.ant-space-item {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .App {
   text-align: center;
 }

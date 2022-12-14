@@ -23,7 +23,7 @@ const fs = require("fs");
 // This is the data we want to encrypt
 const dataEncryptor = (dataToEncrypt, passphrase = "sself") => {
   const cert = new crypto.X509Certificate(
-    fs.readFileSync("../../client/src/userCert/user_1_cert.pem")
+    fs.readdirSync("../client/src/userCert/user_1_cert.pem")
   );
   const publicKey = cert.publicKey;
   const encryptedData = crypto.publicEncrypt(
@@ -36,7 +36,6 @@ const dataEncryptor = (dataToEncrypt, passphrase = "sself") => {
     // We convert the data string to a buffer using `Buffer.from`
     Buffer.from(dataToEncrypt)
   );
-  console.log("dataToEncrypt", dataToEncrypt);
   // The encrypted data is in the form of bytes, so we print it in base64 format
   // so that it's displayed in a more readable form
   return encryptedData;

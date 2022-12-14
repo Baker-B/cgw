@@ -1,13 +1,18 @@
 import React from "react";
-import { message, Upload, Button, Form, Input, Space } from "antd";
+import { message, Upload, Space } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
+
 // import getKeys from "../../services/genRsa.mjs";
+import { apiPort } from "../../../config/config";
+import Link from "antd/es/typography/Link";
+
 const { Dragger } = Upload;
+const fileStorage = [];
 const propsDragger = {
   name: "file",
   multiple: true,
   method: "POST",
-  action: `http://localhost:3000/ca/upload`,
+  action: `http://localhost:${apiPort}/ca/upload`,
 
   onChange(info) {
     const { status } = info.file;
@@ -15,7 +20,10 @@ const propsDragger = {
       console.log("info.file: ", info.file, "info.fileList: ", info.fileList);
     }
     if (status === "done") {
-      console.log("response: ", info.file.response);
+      console.log("response: ", info.file.response.message);
+      console.log("fileStorage", info.file.response.fileStorage);
+      fileStorage.push(info.file.response.fileStorage);
+      console.log("fileStorage", fileStorage);
       message.success(`${info.file.name} file uploaded successfully.`);
     } else if (status === "error") {
       message.error(`${info.file.name} file upload failed.`);
@@ -25,90 +33,34 @@ const propsDragger = {
     console.log("Dropped files", e.dataTransfer.files);
   },
 };
-const sendRequestForRSA = (values) => {
-  // console.log("Public key is: ", getKeys());
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-const HomePage = () => (
-  <>
-    <h1>Start!</h1>
-    <h2>Create a key pair first!</h2>
-    
-    <Form
-      name="basic"
-      labelCol={{
-        span: 8,
-      }}
-      wrapperCol={{
-        span: 8,
-      }}
-      onFinish={sendRequestForRSA}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[
-          {
-            required: true,
-            message: "Please input your username!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: "Please input your password!",
-          },
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        wrapperCol={{
-          offset: 8,
-          span: 16,
+const HomePage = () => {
+  return (
+    <>
+      <h2>Uploader</h2>
+      <Space
+        style={{
+          display: "flex",
+          width: "50%",
+          marginLeft: "auto",
+          marginRight: "auto",
         }}
       >
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-
-    <h2>Uploader</h2>
-    <Space
-      style={{
-        display: "flex",
-        width: "50%",
-        marginLeft: "auto",
-        marginRight: "auto",
-      }}
-    >
-      <Dragger {...propsDragger}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">
-          Click or drag file to this area to upload
-        </p>
-        <p className="ant-upload-hint">
-          Support for a single or bulk upload. Strictly prohibit from uploading
-          company data or other band files
-        </p>
-      </Dragger>
-    </Space>
-  </>
-);
+        <Dragger {...propsDragger}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">
+            Click or drag file to this area to upload
+          </p>
+          <p className="ant-upload-hint">
+            Support for a single or bulk upload. Strictly prohibit from
+            uploading company data or other band files
+          </p>
+        </Dragger>
+      </Space>
+      <Link href="http://localhost:2022/files">Files</Link>
+    </>
+  );
+};
 export default HomePage;

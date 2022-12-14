@@ -9,7 +9,16 @@ require("dotenv").config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const caRouter = require("./routes/ca");
+const cryptoRoute = require("./routes/crypto");
+const mongoose = require("mongoose");
+const File = require("./models/fileSchema");
 const app = express();
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(
+    "mongodb+srv://a-lex-pass:XKLZQPFC9_GrvJesY@cluster0.r0znqqp.mongodb.net/?retryWrites=true&w=majority"
+  );
+}
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -29,6 +38,7 @@ app.disable("x-powered-by");
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/ca", caRouter);
+app.use("/crypto", cryptoRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

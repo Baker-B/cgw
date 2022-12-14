@@ -9,3 +9,9 @@ const hash = crypto
 // .toString();
 
 module.exports = hash;
+
+const passphrase = "Kalishuk";
+const salt = crypto.randomBytes(16);
+const key = crypto.scryptSync(passphrase, salt, 32);
+
+module.exports = key;

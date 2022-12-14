@@ -1,28 +1,10 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
-// const hash = require('../service/keyCreator');
+const secret = require("../service/keyCreator");
 
 // const CryptoAlgorithm = process.env.CRYPTOALGORITM || "aes-256-cbc";
 const CryptoAlgorithm = "rc4";
-
-const ivector = crypto.randomBytes(16)
-
-
-const hash = crypto
-  .createHmac("sha256", ivector)
-  .update("national aviation university")
-  .digest("hex")
-.toString();
-console.log("hash created");
-// Obviously keys should not be kept in code, these should be populated with environmental variables or key store
-const secret = {
-  // iv: Buffer.from(process.env.IV, "hex"),
-  iv: Buffer.from(ivector),
-  key: Buffer.from(hash),
-};
-
-
 
 // encryption
 function encrypt(algorithm, buffer, key, iv) {
@@ -47,18 +29,15 @@ function getEncryptedFilePath(filePath) {
   );
 }
 
-function saveEncryptedFile(buffer, filePath, key=secret.key, iv=secret.iv) {
+function saveEncryptedFile(buffer, filePath, key = secret.key, iv = secret.iv) {
   const encrypted = encrypt(CryptoAlgorithm, buffer, key, iv);
 
   filePath = getEncryptedFilePath(filePath);
   if (!fs.existsSync(path.dirname(filePath))) {
     fs.mkdirSync(path.dirname(filePath));
   }
-
   fs.writeFileSync(filePath, encrypted);
-console.log("secret: ", secret);
-
-  return secret
+  return secret;
 }
 
 function getEncryptedFile(filePath, key, iv) {
@@ -67,11 +46,20 @@ function getEncryptedFile(filePath, key, iv) {
   const buffer = decrypt(CryptoAlgorithm, encrypted, key, iv);
   return buffer;
 }
+function getEncryptedFileWithNoDecryption(filePath) {
+  filePath = getEncryptedFilePath(filePath);
+  const fileName = filePath.split("/").slice(-1);
+  const encrypted = fs.readFileSync(fileName, { encoding: "utf8", flag: "r" });
+  console.log("enc: ", encrypted);
+  // const buffer = Buffer.from(encrypted);
+  return encrypted;
+}
 
 module.exports = {
   // encrypt,
   // decrypt,
   getEncryptedFile,
   saveEncryptedFile,
-  // getEncryptedFilePath,
+  getEncryptedFilePath,
+  getEncryptedFileWithNoDecryption,
 };
