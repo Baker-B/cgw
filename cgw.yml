@@ -1,0 +1,283 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /home/alexander/projects/cgw
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 162
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 13
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 850
+    content: "\e]0;alexander@mycomp: ~/projects/cgw\a\e[01;32malexander@mycomp\e[00m:\e[01;34m~/projects/cgw\e[00m$ "
+  - delay: 1534
+    content: 'node appp.js '
+  - delay: 333
+    content: "\b\b\b\b\b\b\b\b\b\b\b\b\e[8Ppm i"
+  - delay: 659
+    content: "\b\b\b\bode appp.js "
+  - delay: 1180
+    content: "\r\n"
+  - delay: 459
+    content: "imported key <Buffer c1 8e 23 10 57 8a 18 e2 ee d7 6b f5 05 e4 12 94 d5 cd d6 53 10 fb f3 55 0d 9a 78 16 49 63 c9 a5>\r\nsecret {\r\n  iv: <Buffer 79 b9 42 b0 e5 d6 f2 34 ec 78 8c bb ba 96 5c b8>,\r\n  key: <Buffer c1 8e 23 10 57 8a 18 e2 ee d7 6b f5 05 e4 12 94 d5 cd d6 53 10 fb f3 55 0d 9a 78 16 49 63 c9 a5>\r\n}\r\nrestoredSecret {\r\n  iv: <Buffer 79 b9 42 b0 e5 d6 f2 34 ec 78 8c bb ba 96 5c b8>,\r\n  key: <Buffer c1 8e 23 10 57 8a 18 e2 ee d7 6b f5 05 e4 12 94 d5 cd d6 53 10 fb f3 55 0d 9a 78 16 49 63 c9 a5>\r\n}\r\n"
+  - delay: 9
+    content: "Serving at http://localhost:3073\r\n"
+  - delay: 1348
+    content: "\r\n"
+  - delay: 1613
+    content: +
+  - delay: 193
+    content: +
+  - delay: 1119
+    content: "\b \b"
+  - delay: 149
+    content: "\b \b"
+  - delay: 811
+    content: '='
+  - delay: 176
+    content: '='
+  - delay: 349
+    content: ' '
+  - delay: 714
+    content: U
+  - delay: 459
+    content: P
+  - delay: 187
+    content: L
+  - delay: 257
+    content: O
+  - delay: 505
+    content: A
+  - delay: 421
+    content: D
+  - delay: 426
+    content: ' '
+  - delay: 1125
+    content: f
+  - delay: 125
+    content: i
+  - delay: 231
+    content: l
+  - delay: 276
+    content: e
+  - delay: 1128
+    content: "\b \b"
+  - delay: 149
+    content: "\b \b"
+  - delay: 306
+    content: "\b \b"
+  - delay: 273
+    content: "\b \b"
+  - delay: 810
+    content: F
+  - delay: 278
+    content: I
+  - delay: 206
+    content: L
+  - delay: 303
+    content: E
+  - delay: 459
+    content: ' '
+  - delay: 318
+    content: '='
+  - delay: 142
+    content: '='
+  - delay: 905
+    content: "\r\n"
+  - delay: 28800
+    content: "\e[0mPOST /upload \e[32m201\e[0m 535.448 ms - 324\e[0m\r\n"
+  - delay: 64
+    content: "122 app fileObject:  {\r\n  filePath: \e[32m'uploads/fp-1670401822571_encrypted.json'\e[39m,\r\n  base64Secret: \e[32m'eyJpdiI6Ijc5Yjk0MmIwZTVkNmYyMzRlYzc4OGNiYmJhOTY1Y2I4Iiwia2V5IjoiYzE4ZTIzMTA1NzhhMThlMmVlZDc2YmY1MDVlNDEyOTRkNWNkZDY1MzEwZmJmMzU1MGQ5YTc4MTY0OTYzYzlhNSJ9'\e[39m,\r\n  _id: new ObjectId(\"639aef22752ba52fe21ba2d4\"),\r\n  createdAt: \e[35m2022-12-15T09:55:46.078Z\e[39m,\r\n  updatedAt: \e[35m2022-12-15T09:55:46.078Z\e[39m,\r\n  __v: \e[33m0\e[39m,\r\n  id: \e[32m'639aef22752ba52fe21ba2d4'\e[39m\r\n}\r\n"
+  - delay: 23982
+    content: "\r\n"
+  - delay: 764
+    content: '='
+  - delay: 169
+    content: '='
+  - delay: 561
+    content: ' '
+  - delay: 920
+    content: G
+  - delay: 305
+    content: E
+  - delay: 439
+    content: T
+  - delay: 316
+    content: ' '
+  - delay: 1421
+    content: E
+  - delay: 707
+    content: 'N'
+  - delay: 484
+    content: C
+  - delay: 302
+    content: O
+  - delay: 2177
+    content: "\b \b"
+  - delay: 509
+    content: R
+  - delay: 540
+    content: 'Y'
+  - delay: 574
+    content: P
+  - delay: 1311
+    content: T
+  - delay: 306
+    content: E
+  - delay: 183
+    content: D
+  - delay: 620
+    content: ' '
+  - delay: 2937
+    content: S
+  - delay: 327
+    content: E
+  - delay: 2282
+    content: "\b \b"
+  - delay: 298
+    content: "\b \b"
+  - delay: 777
+    content: S
+  - delay: 361
+    content: E
+  - delay: 289
+    content: S
+  - delay: 196
+    content: S
+  - delay: 247
+    content: I
+  - delay: 414
+    content: O
+  - delay: 312
+    content: 'N'
+  - delay: 795
+    content: ' '
+  - delay: 1395
+    content: K
+  - delay: 444
+    content: E
+  - delay: 516
+    content: 'Y'
+  - delay: 802
+    content: ' '
+  - delay: 555
+    content: '='
+  - delay: 154
+    content: '='
+  - delay: 2231
+    content: "\r\n"
+  - delay: 6410
+    content: "184 Getting encrypted file: fp-1670401822571_encrypted.json\r\n186 filePath:  uploads/fp-1670401822571_encrypted.json\r\n"
+  - delay: 47
+    content: "191 secret found eyJpdiI6Ijc5Yjk0MmIwZTVkNmYyMzRlYzc4OGNiYmJhOTY1Y2I4Iiwia2V5IjoiYzE4ZTIzMTA1NzhhMThlMmVlZDc2YmY1MDVlNDEyOTRkNWNkZDY1MzEwZmJmMzU1MGQ5YTc4MTY0OTYzYzlhNSJ9 string\r\n26 dataToEncrypt:  eyJpdiI6Ijc5Yjk0MmIwZTVkNmYyMzRlYzc4OGNiYmJhOTY1Y2I4Iiwia2V5IjoiYzE4ZTIzMTA1NzhhMThlMmVlZDc2YmY1MDVlNDEyOTRkNWNkZDY1MzEwZmJmMzU1MGQ5YTc4MTY0OTYzYzlhNSJ9\r\n30 app pathJoined:  /home/alexander/projects/cgw/client/src/userCert/user_1_cert.pem\r\n33 app publicKey:  -----BEGIN RSA PUBLIC KEY-----\r\nMIIBCgKCAQEA+GSZcl/1WGf1QJO4whfEABdRzwgltg1Plnf6g6rKNsDF5pFLBNHR\r\nTdlmmv4OVU77CWZYOdmb89/4HMDo1Usm/t4MlAZq30YUyd1tCrDpQ8cJt4QwT+k/\r\nfxm0xMwwOOkKuPkYvG6fTObein2/IpHM28OkNh9BsKpIL0LXBmc5w6q7mzgx6qZL\r\nEgjiGbecgsH17UTdbZBtHw40rSX+jr6ebULa1XK0C6G3wiepLU9a0BPtuvdWSSQ0\r\nX4LPVwqknFKJEb+btEIPWoAW7fr0XewHlb0FERS+dtqms5ZBe5mhmaGC5oIL/5zo\r\nDRTewrAYU5TyPJISTBXLjGQPLP2VdlbvVwIDAQAB\r\n-----END RSA PUBLIC KEY-----\r\n\r\n193 encryptedKey 9g30jA4xzyTmDcazZd+w9DAmd9ZQRhjqkqS8RZ7gfyJuaOhvVIC57Y0ETvXC91EIr9GniBdvp3i7OIkKoHKQ1p/jNZV0/9EOTCeBoPcOSDlKKpcHkChUMmH33/ZrGOdhoCRgjLpYfNE+alyCkbPgDPhWXKKgK/rgcU1XbIKJ32R9XLWvl61RGIawjo+41pGPgiucJ2Y5F6DpYulFiclLBFDqYlbO90XdsZagRUMrLXgTMcbSVGjEKbGc6RIsQZvauFIIDDtx2GMeaqTN43kpp8o8XW0M2/2SUIz0IWieW45PINBxQkArLCq6Wn4OQtfe2LCl+UAAsM7Hm1YMkTAuEQ==\r\n\e[0mGET /file/uploads/fp-1670401822571_encrypted.json \e[32m200\e[0m 53.429 ms - 416\e[0m\r\n"
+  - delay: 14466
+    content: "207 req.body.secret eyJpdiI6Ijc5Yjk0MmIwZTVkNmYyMzRlYzc4OGNiYmJhOTY1Y2I4Iiwia2V5IjoiYzE4ZTIzMTA1NzhhMThlMmVlZDc2YmY1MDVlNDEyOTRkNWNkZDY1MzEwZmJmMzU1MGQ5YTc4MTY0OTYzYzlhNSJ9\r\n209 req.body.encryptedKey 9g30jA4xzyTmDcazZd+w9DAmd9ZQRhjqkqS8RZ7gfyJuaOhvVIC57Y0ETvXC91EIr9GniBdvp3i7OIkKoHKQ1p/jNZV0/9EOTCeBoPcOSDlKKpcHkChUMmH33/ZrGOdhoCRgjLpYfNE+alyCkbPgDPhWXKKgK/rgcU1XbIKJ32R9XLWvl61RGIawjo+41pGPgiucJ2Y5F6DpYulFiclLBFDqYlbO90XdsZagRUMrLXgTMcbSVGjEKbGc6RIsQZvauFIIDDtx2GMeaqTN43kpp8o8XW0M2/2SUIz0IWieW45PINBxQkArLCq6Wn4OQtfe2LCl+UAAsM7Hm1YMkTAuEQ== string\r\nencryptedData 9g30jA4xzyTmDcazZd+w9DAmd9ZQRhjqkqS8RZ7gfyJuaOhvVIC57Y0ETvXC91EIr9GniBdvp3i7OIkKoHKQ1p/jNZV0/9EOTCeBoPcOSDlKKpcHkChUMmH33/ZrGOdhoCRgjLpYfNE+alyCkbPgDPhWXKKgK/rgcU1XbIKJ32R9XLWvl61RGIawjo+41pGPgiucJ2Y5F6DpYulFiclLBFDqYlbO90XdsZagRUMrLXgTMcbSVGjEKbGc6RIsQZvauFIIDDtx2GMeaqTN43kpp8o8XW0M2/2SUIz0IWieW45PINBxQkArLCq6Wn4OQtfe2LCl+UAAsM7Hm1YMkTAuEQ==\r\n72 decryptor decryptedData <Buffer 65 79 4a 70 64 69 49 36 49 6a 63 35 59 6a 6b 30 4d 6d 49 77 5a 54 56 6b 4e 6d 59 79 4d 7a 52 6c 59 7a 63 34 4f 47 4e 69 59 6d 4a 68 4f 54 59 31 59 32 ... 102 more bytes>\r\n214 decryptedKey eyJpdiI6Ijc5Yjk0MmIwZTVkNmYyMzRlYzc4OGNiYmJhOTY1Y2I4Iiwia2V5IjoiYzE4ZTIzMTA1NzhhMThlMmVlZDc2YmY1MDVlNDEyOTRkNWNkZDY1MzEwZmJmMzU1MGQ5YTc4MTY0OTYzYzlhNSJ9\r\n223 secret {\r\n  iv: <Buffer 79 b9 42 b0 e5 d6 f2 34 ec 78 8c bb ba 96 5c b8>,\r\n  key: <Buffer c1 8e 23 10 57 8a 18 e2 ee d7 6b f5 05 e4 12 94 d5 cd d6 53 10 fb f3 55 0d 9a 78 16 49 63 c9 a5>\r\n}\r\n\e[0mPOST /file/decrypt/fp-1670401822571_encrypted.json \e[32m200\e[0m 6.835 ms - 53887\e[0m\r\n"
+  - delay: 7105
+    content: "\r\n"
+  - delay: 5446
+    content: "^C\r\n\e]0;alexander@mycomp: ~/projects/cgw\a\e[01;32malexander@mycomp\e[00m:\e[01;34m~/projects/cgw\e[00m$ "
+  - delay: 1119
+    content: "logout\r\n"

@@ -23,13 +23,15 @@ const path = require("path");
 
 // This is the data we want to encrypt
 const dataEncryptor = (dataToEncrypt, passphrase = "sself") => {
+  console.log("26 dataToEncrypt: ",dataToEncrypt);
   const pathJoined = path.join(
     __dirname,
     "../client/src/userCert/user_1_cert.pem"
   );
   console.log("30 app pathJoined: ", pathJoined);
-  const cert = new crypto.X509Certificate(fs.readFileSync(pathJoined));
-  const publicKey = cert.publicKey;
+  // const cert = new crypto.X509Certificate(fs.readFileSync(pathJoined));
+  const publicKey = crypto.createPublicKey(fs.readFileSync(pathJoined)).export({type:'pkcs1', format:'pem'})
+   
   console.log("33 app publicKey: ", publicKey);
   const encryptedData = crypto.publicEncrypt(
     {
@@ -67,6 +69,7 @@ const dataDecryptor = (encryptedData, passphrase = "sself") => {
     },
     encryptedData
   );
+  console.log("72 decryptor decryptedData", decryptedData);
 
   // The decrypted data is of the Buffer type, which we can convert to a
   // string to reveal the original data
