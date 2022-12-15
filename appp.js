@@ -15,6 +15,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const File = require("./models/fileSchema");
+const { dataEncryptor, dataDecryptor } = require("./controllers/pkiController");
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(
@@ -42,7 +43,6 @@ const secretToStore = {
 const secretToString = JSON.stringify(secretToStore);
 const buff = Buffer.from(secretToString, "utf-8");
 const base64Secret = buff.toString("base64");
-// adding public key encryption
 
 const restoredBuff = Buffer.from(base64Secret, "base64");
 const restoredString = restoredBuff.toString("utf-8");
@@ -119,7 +119,7 @@ async function saveEncryptedFile(buffer, filePath, key, iv, base64Secret) {
     base64Secret,
   });
   await file.save();
-  console.log("fileObject: ", file);
+  console.log("122 app fileObject: ", file);
 }
 
 function getEncryptedFile(filePath, key, iv) {
@@ -160,6 +160,7 @@ app.post("/upload", upload.single("file"), (req, res, next) => {
     secret: base64Secret,
   });
 });
+
 // getting dectypted with symmetryc key
 app.get("/file/:fileName", (req, res, next) => {
   const buffer = getEncryptedFile(
@@ -178,41 +179,50 @@ app.get("/file/:fileName", (req, res, next) => {
 });
 
 // getting encrypted
-app.get("/file/uploads/:fileName", (req, res, next) => {
-  console.log("Getting encrypted file:", req.params.fileName);
-  const buffer = getFile(path.join("./uploads", req.params.fileName));
+app.get("/file/uploads/:fileName", async (req, res, next) => {
+  console.log("184 Getting encrypted file:", req.params.fileName);
+  const filePath = path.join("./uploads", req.params.fileName);
+  console.log("186 filePath: ", filePath);
+  const buffer = getFile(filePath);
   const readStream = new stream.PassThrough();
   readStream.end(buffer);
-  res.writeHead(200, {
+  const secret = await File.findOne({ filePath });
+  console.log("191 secret found", secret.base64Secret, typeof base64Secret);
+  const encryptedKey = dataEncryptor(secret.base64Secret).toString("base64");
+  console.log("193 encryptedKey", encryptedKey.toString("base64"));
+
+  res.set({
     "Content-disposition": "attachment; filename=" + req.params.fileName,
     "Content-Type": "application/octet-stream",
     "Content-Length": buffer.length,
   });
-  res.end(buffer);
+  res.json({ filePath, encryptedKey });
 });
 // getting decrypted with secret
 app.post("/file/decrypt/:fileName", (req, res, next) => {
   // secret restore
   console.log("req.body.secret", req.body.secret, typeof req.body.secret);
+  console.log(
+    "207 req.body.encryptedKey",
+    req.body.encryptedKey,
+    typeof req.body.encryptedKey
+  );
+  const decryptedKey = dataDecryptor(req.body.encryptedKey);
 
+  console.log("214 decryptedKey", decryptedKey.toString("base64"));
   const restoredBuff = Buffer.from(req.body.secret, "base64");
-  console.log("restoredBuff", restoredBuff, typeof restoredBuff);
-
   const restoredString = restoredBuff.toString("utf-8");
-  console.log("restoredString", restoredString, typeof restoredString);
-
   const restoredSecretHex = JSON.parse(restoredString);
-  console.log("restoredSecretHex", restoredSecretHex, typeof restoredSecretHex);
   const secret = {
     iv: Buffer.from(restoredSecretHex.iv, "hex"),
     key: Buffer.from(restoredSecretHex.key, "hex"),
   };
-  console.log("secret", secret);
+  console.log("222 secret", secret);
   //
   // file handle
-  console.log("req.body.linkToEncrypted", req.body.linkToEncrypted);
+  console.log("225 req.body.linkToEncrypted", req.body.linkToEncrypted);
   //   const fileName = req.body.linkToEncrypted.split("/").slice(-1).toString();
-  console.log("fileName", req.params.fileName);
+  console.log("227 fileName", req.params.fileName);
   //   const fileRealPath = path.join("./uploads/", fileName);
   //   console.log("fileRealPath", fileRealPath);
   const buffer = getEncryptedFileWithNoSuffix(

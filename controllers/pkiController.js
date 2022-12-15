@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const fs = require("fs");
+const path = require("path");
 
 // The `generateKeyPairSync` method accepts two arguments:
 // 1. The type ok keys we want, which in this case is "rsa"
@@ -22,10 +23,14 @@ const fs = require("fs");
 
 // This is the data we want to encrypt
 const dataEncryptor = (dataToEncrypt, passphrase = "sself") => {
-  const cert = new crypto.X509Certificate(
-    fs.readdirSync("../client/src/userCert/user_1_cert.pem")
+  const pathJoined = path.join(
+    __dirname,
+    "../client/src/userCert/user_1_cert.pem"
   );
+  console.log("30 app pathJoined: ", pathJoined);
+  const cert = new crypto.X509Certificate(fs.readFileSync(pathJoined));
   const publicKey = cert.publicKey;
+  console.log("33 app publicKey: ", publicKey);
   const encryptedData = crypto.publicEncrypt(
     {
       key: publicKey,
@@ -41,10 +46,15 @@ const dataEncryptor = (dataToEncrypt, passphrase = "sself") => {
   return encryptedData;
 };
 
-const dataDecryptor = (encryptedData, passphrase = "self") => {
-  const privateKey = fs.readFileSync(
-    "../../client/src/userCert/user_1_key.pem"
+const dataDecryptor = (encryptedData, passphrase = "sself") => {
+  console.log("encryptedData", encryptedData);
+  const pathJoined = path.join(
+    __dirname,
+    "../client/src/userCert/user_1_key.pem"
   );
+  encryptedData = Buffer.from(encryptedData, "base64");
+
+  const privateKey = fs.readFileSync(pathJoined);
   const decryptedData = crypto.privateDecrypt(
     {
       key: privateKey,
