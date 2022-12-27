@@ -1,4 +1,4 @@
-// main dependence
+// main dependencies
 const express = require("express");
 // reading request body
 const bodyParser = require("body-parser");
@@ -25,7 +25,8 @@ async function main() {
     "mongodb+srv://a-lex-pass:XKLZQPFC9_GrvJesY@cluster0.r0znqqp.mongodb.net/?retryWrites=true&w=majority"
   );
 }
-// internal dependensies
+// internal dependencies
+const router = require('./routes/router');
 const key = require("./keyCreator");
 const File = require("./models/fileSchema");
 const { dataEncryptor, dataDecryptor } = require("./controllers/pkiController");
@@ -136,6 +137,7 @@ function getFile(filePath) {
   return buffer;
 }
 // routes
+// app.get("/", router.form)
 // upload user file
 app.post("/upload", upload.single("file"), (req, res, next) => {
   const filePath = path.join("./uploads/", req.file.originalname);

@@ -4,8 +4,8 @@
   "description": "crypto api educational application",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node appp.js",
+    "dev": "nodemon appp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

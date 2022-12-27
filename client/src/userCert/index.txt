@@ -1,1 +1,0 @@
-V	231209114234Z		01	unknown	/C=UK/ST=Kyiv/O=NAU/OU=Faculty of Cybersecurity, Computer and Software Engineering/CN=Cybersecurity/emailAddress=user@userdomain.com

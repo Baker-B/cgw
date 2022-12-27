@@ -1,17 +1,17 @@
 # Calculating graphic work
 
-The project contains 2 main parts:
+The project contains an API server. It can be started on 3073 port with command `npm run start` or `npm run dev` (with nodemon).
 
-- Client. `cd client && npm i && npm run start` command will run simple react app on 2022 port.
-- Server. `cd ../server && npm i && npm run start:dev` command will start express server on 3000 port.
+It serves resources
+- `POST /upload` - upload single file, encrypt it with symmetric key, encrypt that symmetric key with user's open key obtained from his x.509 certificate and save link to encrypted file and encrypted session key to db.
 
-backend based on [Express application generator](https://expressjs.com/en/starter/generator.html)
-`npx express-generator server --view=hbs`
-frontend based on [CRA](https://create-react-app.dev/docs/getting-started)
+- `GET /file/:fileName` - return the file decrypted with just symmetric session key (debug)
 
-<!--  The solution is monolith app on nodejs and express. -->
-<!-- The frontend is implemented on handlebars. -->
+- `GET /file/uploads/:fileName` - return encrypted file and session key encrypted with user's open key
 
+- `POST /file/decrypt/:fileName` - returns decrypted file, if user sent correct key
+
+## Useful links ##
 **Certificate commands**
 **OpenSSL configure:**
 `$cp /usr/lib/ssl/openssl.cnf /usr/lib/ssl/openssl.cnf.bak`
