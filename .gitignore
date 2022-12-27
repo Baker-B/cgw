@@ -2,6 +2,7 @@
 
 # certs
 *.pem
+*.pub
 
 /upload*
 
